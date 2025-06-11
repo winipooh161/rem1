@@ -1,0 +1,476 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'address-autocomplete.css';
+
+/* Основные стили сайта */
+body, html {
+    font-family:"Onest" !important;}
+
+/* Убедимся, что все элементы наследуют шрифт */
+* {
+    font-family: inherit;
+}
+
+/* Стили для боковой панели */
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #343a40;
+    color: #fff;
+    transition: all 0.3s;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.sidebar.active {
+    margin-left: -250px;
+}
+
+.sidebar .sidebar-header {
+    padding: 15px;
+    background: #212529;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar ul.components {
+    padding: 0 0 20px 0;
+}
+
+.sidebar ul li a {
+    padding: 10px 20px;
+    font-size: 1em;
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.sidebar ul li a:hover {
+    color: #fff;
+    background: #495057;
+}
+
+.sidebar ul li.active > a {
+    color: #fff;
+    background: #007bff;
+}
+
+.sidebar ul ul a {
+    padding-left: 30px !important;
+    background: #454d55;
+}
+
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: relative;
+    margin-left: 250px;
+}
+
+#content.active {
+    margin-left: 0;
+}
+
+.sidebar-header {
+    font-size: 14px;
+    color: #adb5bd;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding-left: 20px;
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000; /* Повышаем z-index, чтобы меню было поверх контента */
+        transition: all 0.3s ease;
+        box-shadow: none;
+    }
+    
+    .sidebar.active {
+        margin-left: 0;
+        box-shadow: 3px 0 10px rgba(0,0,0,0.2); /* Добавляем тень при открытом меню */
+    }
+    
+    #content {
+        margin-left: 0;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    #content.active {
+        position: relative; /* Изменяем на relative вместо fixed, чтобы избежать проблем с прокруткой */
+        margin-left: 0;
+    }
+    
+    /* Стиль для кнопки мобильного меню */
+    #sidebarCollapseShow {
+        cursor: pointer !important;
+        padding: 0.5rem 0.75rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1001; /* Повышенный z-index для кнопки */
+        position: relative;
+        touch-action: manipulation; /* Улучшение работы на сенсорных устройствах */
+        -webkit-tap-highlight-color: rgba(0,0,0,0); /* Отключение подсветки на iOS */
+    }
+    
+    #sidebarCollapseShow:hover, 
+    #sidebarCollapseShow:active {
+        background-color: #e9ecef;
+    }
+    
+    #sidebarCollapseShow:active {
+        transform: scale(0.95);
+    }
+
+    /* Улучшенная мобильная адаптация */
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Адаптивные таблицы */
+    .table-responsive-mobile {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Адаптация карточек проектов */
+    .project-card {
+        margin-bottom: 15px;
+    }
+    
+    /* Формы на мобильных устройствах */
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    /* Кнопки в мобильном виде */
+    .btn-mobile-block {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Улучшение кнопок действий */
+    .action-buttons-mobile {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .action-buttons-mobile .btn {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Улучшенная навигация по вкладкам */
+    .nav-tabs-wrapper {
+        position: relative;
+    }
+    
+    .nav-tabs-scroll-indicator {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 30px;
+        background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.8));
+        pointer-events: none;
+        z-index: 2;
+    }
+    
+    /* Адаптация заголовков и текста */
+    h1, h2, h3, h4, h5, h6 {
+        word-wrap: break-word;
+    }
+    
+    /* Отступы в мобильном виде */
+    .mobile-mt-2 {
+        margin-top: 0.5rem !important;
+    }
+    
+    .mobile-mb-2 {
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+/* Адаптивные модальные окна */
+@media (max-width: 576px) {
+    .modal-dialog {
+        max-width: 100%;
+        margin: 1rem;
+    }
+    
+    /* Уменьшение отступов в модальных окнах */
+    .modal-body {
+        padding: 1rem;
+    }
+}
+
+/* Стили для вкладок на одной линии с горизонтальной прокруткой */
+.nav-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-tabs .nav-item {
+    float: none;
+    display: inline-block;
+}
+
+/* Убираем полосу прокрутки из вида */
+.nav-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+/* Для Firefox */
+.nav-tabs {
+    scrollbar-width: none;
+}
+
+/* Стиль активной вкладки */
+.nav-tabs .nav-link.active {
+    font-weight: 500;
+    border-bottom-color: #007bff;
+    color: #007bff;
+}
+.sidebar-header img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain !important;
+}
+
+/* Адаптивные таблицы для всех разрешений */
+@media (max-width: 992px) {
+    .table-responsive-all {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Карточный вид таблиц на мобильных */
+    .table-card-view {
+        border: 0;
+    }
+    
+    .table-card-view thead {
+        display: none;
+    }
+    
+    .table-card-view tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+    
+    .table-card-view td {
+        display: block;
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+        border-top: 0;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .table-card-view td:last-child {
+        border-bottom: 0;
+    }
+    
+    .table-card-view td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 0.75rem;
+        font-weight: bold;
+        text-align: left;
+    }
+    
+    /* Уменьшенные кнопки в таблицах */
+    .table-btn-group {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .table-btn-group .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* Улучшенная адаптация форм */
+@media (max-width: 768px) {
+    .form-row-mobile {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form-group-mobile {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    /* Адаптивные карточки и панели */
+    .card-header-mobile {
+        padding: 0.75rem;
+    }
+    
+    .card-body-mobile {
+        padding: 0.75rem;
+    }
+    
+    /* Улучшение кнопок */
+    .btn-mobile-full {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .btn-group-mobile {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-group-mobile > .btn {
+        margin-bottom: 0.5rem;
+        border-radius: 0.25rem !important;
+    }
+    
+    /* Улучшенный мобильный аккордеон */
+    .accordion-mobile .accordion-button {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .accordion-mobile .accordion-body {
+        padding: 0.75rem;overflow: auto;
+    }
+}
+
+/* Специальные классы для отзывчивых элементов */
+.scrollable-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.scrollable-y {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.hide-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Улучшенное мобильное отображение вкладок */
+@media (max-width: 768px) {
+    .nav-tabs .nav-item {
+        margin-bottom: 0.25rem;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Адаптивные отступы */
+@media (max-width: 576px) {
+    .mobile-p-2 {
+        padding: 0.5rem !important;
+    }
+    
+    .mobile-px-2 {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    
+    .mobile-py-2 {
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+    }
+    
+    .mobile-m-2 {
+        margin: 0.5rem !important;
+    }
+}
+
+/* Дополнительные адаптивные улучшения для всех страниц */
+@media (max-width: 576px) {
+    .modal-footer {
+        flex-direction: column;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        margin-left: 0 !important;
+    }
+    
+    .modal-footer .btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Улучшенное отображение элементов формы */
+    .form-control, .form-select {
+        font-size: 16px; /* Предотвращение масштабирования на iOS */
+        min-height: 44px; /* Увеличиваем для лучшего касания */
+    }
+    
+    /* Улучшенные отступы */
+    .mobile-spacer {
+        height: 1rem;
+    }
+    
+    /* Улучшение отображения финансовых значений */
+    .currency-value {
+        white-space: nowrap;
+    }
+}
+
+/* Улучшенное отображение таблиц для всех устройств */
+.table-mobile-friendly td, .table-mobile-friendly th {
+    vertical-align: middle;
+}
+
+/* Улучшение интерактивных элементов */
+@media (max-width: 768px) {
+    .btn {
+        padding: 0.5rem 0.75rem;
+        min-height: 42px;
+        touch-action: manipulation;
+    }
+    
+    /* Улучшенные модальные окна */
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+}

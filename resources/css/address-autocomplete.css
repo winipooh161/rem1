@@ -1,0 +1,54 @@
+/* Стили для контейнера подсказок адреса */
+.address-suggestions {
+    position: absolute;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 0 0 0.25rem 0.25rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1050;
+    display: none;
+    margin-top: -1px;
+}
+
+/* Стиль для элемента подсказки */
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+.suggestion-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Стиль для популярных городов */
+.suggestion-item.popular {
+    font-weight: 600;
+    border-left: 3px solid #007bff;
+}
+
+/* Разделитель в списке подсказок */
+.suggestion-divider {
+    padding: 8px 15px;
+    font-size: 12px;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    font-style: italic;
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+}
+
+/* Стиль для поля ввода во время активного автозаполнения */
+input[name="address"]:focus {
+    position: relative;
+    z-index: 1051;
+}
+
+/* Позиционирование контейнера подсказок внутри относительно позиционированного родителя */
+.form-group, .mb-3 {
+    position: relative;
+}

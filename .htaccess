@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    AddDefaultCharset UTF-8
+    
+    # Перенаправление с HTTP на HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Основная директива для направления запросов к публичной директории
+    RewriteCond %{REQUEST_URI} !^public
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
